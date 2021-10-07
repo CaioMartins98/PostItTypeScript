@@ -81,7 +81,7 @@ const PostIt = () => {
                   </GridTextArea>
                   <DividerItem />
 
-                  <GridListItem cellHeight={300}>
+                  <GridListItem cellHeight={250}>
                     <Content>
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                       Aliquam lorem diam, sodales ut viverra nec, bibendum at

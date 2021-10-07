@@ -48,7 +48,7 @@ const Header: React.FC<Props> = ({ toggleTheme }) => {
           <h1> It!</h1>
         </ContainerIt>
       </div>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", marginRight: "20px" }}>
         <Tooltip
           title={
             title === "dark"
@@ -56,7 +56,7 @@ const Header: React.FC<Props> = ({ toggleTheme }) => {
               : " Mudar para o tema dark"
           }
         >
-          <div style={{ marginTop: "15px" }}>
+          <div style={{ marginTop: "15px", marginRight: "12px" }}>
             <Switch
               onChange={toggleTheme}
               checked={title === "light"}

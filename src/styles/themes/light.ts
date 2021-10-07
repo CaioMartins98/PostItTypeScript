@@ -11,6 +11,6 @@ export default {
     bgScrollBar: "#f5f5f5",
     bgHeader: "#3D4DDB",
     post: "#fff",
-    it: "#000",
+    it: "#0283DB",
   },
 };
