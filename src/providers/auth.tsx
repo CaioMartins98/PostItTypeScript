@@ -11,7 +11,7 @@ export const AuthProvider = (props: any) => {
   useEffect(() => {
     const userStorage = user || '';
    setUser(userStorage)
-  }, []);
+  });
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
