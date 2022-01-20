@@ -18,12 +18,19 @@ export const ContainerHeader = styled.div`
 export const Container = styled.div`
   background: ${(props) => props.theme.colors.background};
   color: ${(props) => props.theme.colors.text};
-  height: 100vw;
-  width: 100vw;
+  height: 100vh ;
+  /* width: 100vw; */
+
+  /* @media (max-width: 768px) {
+   
+    height: 100vh;
+    width: 100vw;
+  } */
 `;
 
 export const ContainerPost = styled.div`
   margin-left: 20px;
+  
   h1 {
     color: ${(props) => props.theme.colors.post};
     font-size: 40px;
@@ -72,6 +79,13 @@ export const TextAreaContainer = styled(Grid)`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
   }
 `;
 
@@ -91,6 +105,17 @@ export const TextArea = styled.textarea`
     background: ${(props) => props.theme.colors.background};
     color: ${(props) => props.theme.colors.text};
     caret-color: #3d4ddb;
+
+    @media (max-width: 768px) {
+      margin-bottom: 0px;
+      border-radius: 4px 4px 0px 0px;
+
+      width: 450px;
+      min-width: 450px;
+      max-width: 450px;
+      min-height: 100px;
+      max-height: 100px;
+    }
   }
 `;
 
@@ -111,12 +136,20 @@ export const ButtonField = styled(Button)`
     :hover {
       background: #313dad;
     }
+
+    @media (max-width: 768px) {
+      width: 450px;
+      height: 70px;
+
+      border-radius: 0px 0px 4px 4px;
+    }
   }
 `;
 
 export const CardContainer = styled.div`
   && {
     width: 100vw;
+    background: ${(props) => props.theme.colors.background};
   }
 `;
 
@@ -137,6 +170,7 @@ export const GridContainer = styled(Grid)`
     border-radius: 15px;
     background: white;
     margin-top: 30px;
+    margin-bottom: 10px;
     box-shadow: 7px 7px 7px ${(props) => props.theme.colors.boxShadow};
     margin-left: 1%;
     margin: 5;

@@ -10,7 +10,7 @@ import {
 import Switch from "react-switch";
 import { ThemeContext } from "styled-components";
 import { shade } from "polished";
-import { Button, Popover, Tooltip } from "@material-ui/core";
+import {  Popover, Tooltip } from "@material-ui/core";
 import routes from "../../helpers/routes";
 import DirectionsRunIcon from "@material-ui/icons/DirectionsRun";
 
@@ -55,6 +55,8 @@ const Header: React.FC<Props> = ({ toggleTheme }) => {
               ? "Mudar para o tema light"
               : " Mudar para o tema dark"
           }
+          arrow
+         
         >
           <div style={{ marginTop: "15px", marginRight: "12px" }}>
             <Switch
@@ -70,12 +72,12 @@ const Header: React.FC<Props> = ({ toggleTheme }) => {
             />
           </div>
         </Tooltip>
-        <Tooltip title="Sair">
+        <Tooltip title="Sair" arrow>
           <ButtonUserIcon onClick={handleOpen} color="inherit">
             <PersonIcon fontSize="large" style={{ color: "white" }} />
           </ButtonUserIcon>
         </Tooltip>
-
+        <LinkItem to={routes.login.root}>
         <Popover
           id={id}
           open={isOpen}
@@ -105,11 +107,11 @@ const Header: React.FC<Props> = ({ toggleTheme }) => {
               marginRight: "10px",
             }}
           >
-            <LinkItem to={routes.login.root}>
+            
               Sair <DirectionsRunIcon fontSize="medium" />
-            </LinkItem>
           </h2>
         </Popover>
+            </LinkItem>
       </div>
     </ContainerHeader>
   );

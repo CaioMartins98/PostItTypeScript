@@ -1,8 +1,4 @@
-import React from "react";
-
-import { InputAdornment } from "@material-ui/core";
-import { Visibility, VisibilityOff } from "@material-ui/icons";
-import routes from "../../helpers/routes";
+import React, { useContext, useState } from "react";
 
 import { DefaultTheme, ThemeProvider } from "styled-components";
 
@@ -12,45 +8,46 @@ import light from "../../styles/themes/light";
 import {
   ButtonItem,
   Container,
-  IconButtonItem,
   InputItem,
   InputLabelItem,
-  LinkContainer,
-  LinkItem,
   LoginContainer,
   TitleContainer,
+  Title,
+  DescriptionContainer,
+  Description,
+  ErrorField,
 } from "./styles";
 
 import Header from "../../components/Header";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { AuthContext } from "../../providers/auth";
 
-interface State {
-  userName: string;
-  password: string;
-
-  showPassword: boolean;
-}
 
 export default function Login() {
-  const [values, setValues] = React.useState<State>({
-    userName: "",
-    password: "",
-    showPassword: false,
-  });
-
-  const handleChange =
-    (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      setValues({ ...values, [prop]: event.target.value });
-    };
-
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+  const history = useHistory();
+  const [inputValue, setInputValue] = useState({ name: "" });
+  const { setUser }: any = useContext(AuthContext);
+  const [messageUser, setMessageUser] = useState("");
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue({ name: event.target.value });
   };
 
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
+  const handleSubmit = () => {
+    const user: any = inputValue;
+    localStorage.setItem("user", JSON.stringify(user));
+    setUser(user);
+    validate();
+  };
+
+  const validate = () => {
+    const { name } = inputValue;
+
+    if (name === "") {
+      setMessageUser("Campo de usuário obrigatório*");
+      return;
+    } else {
+      history.push("/postIt");
+    }
   };
 
   const [theme, setTheme] = usePersistedState<DefaultTheme>("theme", dark);
@@ -72,62 +69,37 @@ export default function Login() {
         <Container>
           <LoginContainer>
             <TitleContainer>
-              <h1>Bem-vindo!</h1>
+              <Title>Bem-vindo!</Title>
             </TitleContainer>
+            <DescriptionContainer>
+              <Description>
+                Insira seu nome para entrar na sua plataforma de postagem
+                online!
+              </Description>
+            </DescriptionContainer>
             <InputLabelItem>Nome</InputLabelItem>
 
             <InputItem
               data-testid="username-field"
               style={{ width: "100%" }}
               required
-              value={values.userName}
-              onChange={handleChange("userName")}
-            />
-            <InputLabelItem htmlFor="standard-adornment-password">
-              Senha
-            </InputLabelItem>
-            <InputItem
-              id="standard-adornment-password"
-              type={values.showPassword ? "text" : "password"}
-              value={values.password}
-              onChange={handleChange("password")}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButtonItem
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButtonItem>
-                </InputAdornment>
-              }
+              // value={values.userName}
+              onChange={handleChange}
             />
             <div>
-              <ButtonItem variant="contained" color="primary">
-                <Link
-                  style={{
-                    outline: "none",
-                    textDecoration: "none",
-                    color: "white",
-                  }}
-                  to={routes.main.root}
-                >
-                  Entrar
-                </Link>
+              <ErrorField data-testid="erro-user" style={{ color: "red" }}>
+                {messageUser}
+              </ErrorField>
+            </div>
+            <div>
+              <ButtonItem
+                onClick={handleSubmit}
+                variant="contained"
+                color="primary"
+              >
+                Entrar
               </ButtonItem>
             </div>
-            <LinkContainer>
-              <LinkItem to={routes.signUp.root}>Cadastre-se</LinkItem>
-            </LinkContainer>
-            <LinkContainer>
-              <LinkItem
-                style={{ fontSize: "16px" }}
-                to={routes.forgotPassword.root}
-              >
-                Esqueceu sua senha ?
-              </LinkItem>
-            </LinkContainer>
           </LoginContainer>
         </Container>
       </div>

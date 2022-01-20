@@ -10,6 +10,10 @@ export const Container = styled.div`
   padding: 0 30px;
   justify-content: space-around;
   font-family: "Pacifico", cursive;
+  
+  @media(max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const ContainerPost = styled.div`
